@@ -1,0 +1,375 @@
+/* ===================== MUNDA Light Match — game.css v7 (interior lights) ===================== */
+:root {
+  --bg: #07070c;
+  --surface: #10101a;
+  --surface-2: #171726;
+  --text: #f4f4f6;
+  --muted: #9a9aaa;
+  --accent: #ff2d95;
+  --accent-soft: #ff7ab8;
+  --accent-glow: rgba(255, 45, 149, 0.55);
+  --border: rgba(255, 255, 255, 0.09);
+  --font-head: 'Sora', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  background:
+    radial-gradient(90% 60% at 50% -10%, rgba(255, 45, 149, 0.10) 0%, transparent 60%),
+    var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+button { font-family: inherit; }
+
+/* ===== Top bar ===== */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 22px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(7, 7, 12, 0.7);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+.topbar__back {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+.topbar__back:hover { color: var(--accent-soft); }
+.topbar__title {
+  font-family: var(--font-head);
+  font-size: clamp(1.05rem, 2.6vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.topbar__title span {
+  color: var(--accent);
+  text-shadow: 0 0 18px var(--accent-glow);
+}
+.topbar__stats { display: flex; align-items: center; gap: 14px; }
+.stat { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.2; }
+.stat__label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.18em; color: var(--muted); }
+.stat__value {
+  font-family: var(--font-head);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--accent-soft);
+}
+.sound-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  width: 38px;
+  height: 38px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.sound-btn:hover { border-color: var(--accent); transform: translateY(-1px); }
+
+/* ===== Timer bar ===== */
+.timerbar {
+  position: relative;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.06);
+}
+.timerbar__fill {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, var(--accent), #ff7ab8);
+  box-shadow: 0 0 14px var(--accent-glow);
+  transition: width 1s linear;
+}
+.timerbar__fill.danger { background: #ff3b3b; box-shadow: 0 0 14px rgba(255, 59, 59, 0.6); }
+.timerbar__label {
+  position: absolute;
+  right: 10px;
+  top: -26px;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: var(--accent-soft);
+}
+
+/* ===== Stage ===== */
+.stage {
+  flex: 1;
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 18px 20px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ===== Interior ===== */
+.car-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 900 / 500;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: radial-gradient(120% 100% at 50% 20%, #0d0d16 0%, #08080e 100%);
+  overflow: hidden;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6);
+}
+#gameSvg { width: 100%; height: 100%; display: block; }
+
+/* Audi interior photo — kept dark so the lights pop */
+.car-img {
+  filter: brightness(0.95) saturate(1.08);
+}
+
+/* ===== Sockets (empty light spots) ===== */
+.socket { transition: opacity 0.45s ease; }
+.sock {
+  fill: rgba(255, 45, 149, 0.08);
+  stroke: rgba(255, 122, 184, 0.8);
+  stroke-width: 3;
+  stroke-dasharray: 7 6;
+  transition: opacity 0.4s ease, stroke 0.25s, fill 0.25s;
+}
+.socket.flash .sock { stroke: #ff4444; fill: rgba(255, 68, 68, 0.2); }
+.socket.filled .sock { opacity: 0; }
+
+/* soft radial light that appears behind a placed light */
+.spot-glow {
+  fill: url(#lightGlow);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+.socket.filled .spot-glow {
+  opacity: 1;
+  animation: glowPulse 2.2s ease-in-out infinite;
+}
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.75; }
+  50% { opacity: 1; }
+}
+
+/* ===== Pieces (glowing textile lights) ===== */
+.part {
+  cursor: grab;
+  touch-action: none;
+  filter: drop-shadow(0 0 10px rgba(255, 45, 149, 0.85));
+  transition: filter 0.4s ease;
+}
+.part.grabbing {
+  cursor: grabbing;
+  pointer-events: none;
+  filter: drop-shadow(0 0 20px rgba(255, 45, 149, 0.95));
+}
+.part.placed {
+  cursor: default;
+  pointer-events: none;
+  filter: drop-shadow(0 0 18px rgba(255, 45, 149, 0.95));
+}
+
+.part .inner { transform-box: fill-box; transform-origin: center; }
+
+.part .p-shape {
+  fill: url(#pinkLit);
+  stroke: #ffd0e8;
+  stroke-width: 3;
+  stroke-linejoin: round;
+  transition: fill 0.3s ease;
+}
+.part[data-shape="line"] .p-shape,
+.part[data-shape="pill"] .p-shape {
+  stroke-width: 2.5;
+}
+
+/* placed lights keep glowing — they light up the interior */
+.part.placed .p-shape { fill: url(#pinkLit); }
+
+/* ===== Ambient glow when the interior lights up ===== */
+.ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+.car-wrap.lit .ambient {
+  opacity: 1;
+  background: radial-gradient(75% 65% at 50% 45%, rgba(255, 45, 149, 0.22) 0%, rgba(255, 122, 184, 0.08) 50%, transparent 78%);
+  animation: ambientPulse 2.4s ease-in-out infinite;
+}
+@keyframes ambientPulse {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+/* ===== Sparkles (real 4-point stars) ===== */
+.sparkle {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 8;
+}
+.sparkle svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 0 5px rgba(255, 45, 149, 0.85));
+}
+.car-wrap .sparkle { display: none; }
+.car-wrap.lit .sparkle {
+  display: block;
+  animation: popTwinkle 2.2s ease-in-out infinite;
+}
+@keyframes popTwinkle {
+  0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+  15%  { opacity: 1; transform: scale(1.2) rotate(25deg); }
+  60%  { opacity: 0.4; transform: scale(0.9) rotate(10deg); }
+}
+.overlay__box .sparkle { animation: twinkle 1.8s ease-in-out infinite; }
+@keyframes twinkle {
+  0%, 100% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+  50%  { opacity: 1; transform: scale(1.1) rotate(18deg); }
+}
+.overlay__sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* ===== Floating +100 ===== */
+.float {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: #fff;
+  text-shadow: 0 0 14px var(--accent-glow);
+  pointer-events: none;
+  z-index: 20;
+  animation: floatUp 0.8s ease forwards;
+}
+@keyframes floatUp {
+  0% { opacity: 0; translate: 0 10px; }
+  20% { opacity: 1; }
+  100% { opacity: 0; translate: 0 -46px; }
+}
+
+/* ===== Hints ===== */
+.hints {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 22px;
+}
+.hints span { font-size: 0.82rem; color: var(--muted); }
+.hints span::first-letter { color: var(--accent-soft); }
+.credit {
+  text-align: center;
+  font-size: 0.68rem;
+  color: #4a4a5a;
+}
+
+/* ===== Overlays ===== */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 5, 10, 0.82);
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.4s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.overlay.hidden { display: none; }
+.overlay__box {
+  position: relative;
+  text-align: center;
+  background: linear-gradient(165deg, var(--surface-2), var(--surface));
+  border: 1px solid rgba(255, 45, 149, 0.35);
+  border-radius: 22px;
+  padding: 44px 48px;
+  max-width: 460px;
+  width: calc(100% - 40px);
+  box-shadow: 0 0 80px var(--accent-glow);
+  animation: popIn 0.45s cubic-bezier(0.2, 1.4, 0.4, 1);
+}
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.85) translateY(14px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.overlay__eyebrow {
+  font-family: var(--font-head);
+  font-size: 0.7rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--accent-soft);
+  margin-bottom: 12px;
+}
+.overlay__title {
+  font-family: var(--font-head);
+  font-size: clamp(1.6rem, 4.5vw, 2.2rem);
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 18px;
+  background: linear-gradient(180deg, #fff 30%, var(--accent-soft) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.overlay__score { font-size: 1.05rem; color: var(--text); }
+.overlay__score b { color: var(--accent-soft); font-family: var(--font-head); }
+.overlay__bonus { font-size: 0.9rem; color: var(--muted); margin-top: 2px; }
+.overlay__bonus b { color: #6cf08f; }
+.overlay__best { font-size: 0.85rem; color: var(--muted); margin: 4px 0 22px; }
+.overlay__best b { color: var(--text); }
+.overlay__btn {
+  display: inline-block;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 999px;
+  padding: 13px 36px;
+  cursor: pointer;
+  box-shadow: 0 10px 34px var(--accent-glow);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.overlay__btn:hover { transform: translateY(-2px); box-shadow: 0 14px 40px var(--accent-glow); }
+.overlay__link {
+  display: block;
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+.overlay__link:hover { color: var(--accent-soft); }
+
+/* ===== Responsive ===== */
+@media (max-width: 640px) {
+  .stage { padding: 12px 12px 24px; gap: 12px; }
+  .hints span { font-size: 0.74rem; }
+  .overlay__box { padding: 34px 26px; }
+}

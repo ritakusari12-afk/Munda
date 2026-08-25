@@ -21,14 +21,24 @@
     <a href="#home" class="nav__logo">
       <img src="assets/img/logo/logo-noclaim.png" alt="MUNDA logo" />
     </a>
-    <nav class="nav__links" id="navLinks">
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#technology">Technology</a>
-      <a href="#projects">Projects</a>
-      <a href="#team">Team</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <div class="nav__right">
+      <div class="nav__top">
+        <nav class="nav__links" id="navLinks">
+          <a href="#home" data-i18n="nav.home">Home</a>
+          <a href="#about" data-i18n="nav.about">About</a>
+          <a href="#technology" data-i18n="nav.technology">Technology</a>
+          <a href="#projects" data-i18n="nav.projects">Projects</a>
+          <a href="#team" data-i18n="nav.team">Team</a>
+          <a href="#contact" data-i18n="nav.contact">Contact</a>
+        </nav>
+        <div class="nav__lang" id="langSwitch" aria-label="Language">
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+          <span class="lang-sep">|</span>
+          <button type="button" class="lang-btn" data-lang="de">DE</button>
+        </div>
+      </div>
+      <a href="design.html" class="nav__game" title="Design your interior">GAME</a>
+    </div>
     <button class="nav__toggle" id="navToggle" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -40,15 +50,15 @@
     <div class="hero__overlay"></div>
     <div class="hero__content">
       <img src="assets/img/logo/logo.png" alt="MUNDA — Textile Lighting Systems" class="hero__logo" />
-      <p class="hero__tagline">Textile Lighting Systems</p>
-      <h1 class="hero__title">The world of textile light</h1>
-      <p class="hero__sub">
+      <p class="hero__tagline" data-i18n="hero.tagline">Textile Lighting Systems</p>
+      <h1 class="hero__title" data-i18n="hero.title">The world of textile light</h1>
+      <p class="hero__sub" data-i18n="hero.sub">
         We combine the know-how of technical textiles with LED-based lighting technology to create
         something entirely new — light woven into fabric.
       </p>
       <div class="hero__cta">
-        <a href="#projects" class="btn btn--primary">Discover our projects</a>
-        <a href="#about" class="btn btn--ghost">About MUNDA</a>
+        <a href="#projects" class="btn btn--primary" data-i18n="hero.cta1">Discover our projects</a>
+        <a href="#about" class="btn btn--ghost" data-i18n="hero.cta2">About MUNDA</a>
       </div>
     </div>
     <a href="#about" class="hero__scroll" aria-label="Scroll down">
@@ -59,18 +69,18 @@
   <!-- ===================== ABOUT ===================== -->
   <section class="section about" id="about">
     <div class="container">
-      <p class="eyebrow">About us</p>
-      <h2 class="section__title">A joint venture creating a new technology</h2>
+      <p class="eyebrow" data-i18n="about.eyebrow">About us</p>
+      <h2 class="section__title" data-i18n="about.title">A joint venture creating a new technology</h2>
 
       <div class="about__intro">
-        <p>
+        <p data-i18n="about.intro1">
           In summer 2019, <strong>AUNDE</strong> and <strong>MENTOR</strong> founded
           <strong>MUNDA Textile Lichtsysteme GmbH</strong> in Erkrath, Germany, as equal partners.
           Our name — MUNDA, derived from <strong>MEN</strong>TOR and <strong>A</strong>UNDE — symbolises
           the idea behind the joint venture: two companies with one shared goal, each contributing their
           core competence to enable something new.
         </p>
-        <p>
+        <p data-i18n="about.intro2">
           Textile lighting systems — built to the highest technical standard and ready for series production
           in the most demanding industries.
         </p>
@@ -78,9 +88,9 @@
 
       <div class="about__cards">
         <article class="card">
-          <div class="card__tag">Partner · Technical Textiles</div>
+          <div class="card__tag" data-i18n="about.card1.tag">Partner · Technical Textiles</div>
           <h3>AUNDE</h3>
-          <p>
+          <p data-i18n="about.card1.body">
             Founded in 1899 in Mönchengladbach, AUNDE is one of the world's leading automotive suppliers.
             Its brands — AUNDE, ISRINGHAUSEN and FEHRER — produce yarns, technical textiles, foams,
             seat covers, seats, technical springs and interior modules for the world's leading car makers.
@@ -88,14 +98,14 @@
           </p>
           <div class="card__stat">
             <span class="card__stat-num">24,500+</span>
-            <span class="card__stat-label">employees · 117 plants · 28 countries</span>
+            <span class="card__stat-label" data-i18n="about.card1.label">employees · 117 plants · 28 countries</span>
           </div>
         </article>
 
         <article class="card">
-          <div class="card__tag">Partner · Integrated Light</div>
+          <div class="card__tag" data-i18n="about.card2.tag">Partner · Integrated Light</div>
           <h3>MENTOR</h3>
-          <p>
+          <p data-i18n="about.card2.body">
             Founded in 1920, MENTOR is a leading German specialist for product-integrated light and a
             recognised development partner and series supplier to major automotive manufacturers and OEMs.
             With production sites on three continents and representation in more than 40 countries,
@@ -103,24 +113,24 @@
           </p>
           <div class="card__stat">
             <span class="card__stat-num">100+</span>
-            <span class="card__stat-label">years of lighting expertise</span>
+            <span class="card__stat-label" data-i18n="about.card2.label">years of lighting expertise</span>
           </div>
         </article>
       </div>
 
       <blockquote class="quote">
-        <p>
+        <p data-i18n="about.quote1.text">
           “With MUNDA's textile lighting systems we meet these new requirements and help create
           entirely new customer experiences.”
         </p>
-        <cite>Rolf Königs — CEO, AUNDE Group</cite>
+        <cite data-i18n="about.quote1.cite">Rolf Königs — CEO, AUNDE Group</cite>
       </blockquote>
       <blockquote class="quote">
-        <p>
+        <p data-i18n="about.quote2.text">
           “The technology emerging at MUNDA opens up new fields of application and further
           growth opportunities for us in many industries.”
         </p>
-        <cite>Wido Weyer — Managing Partner, MENTOR</cite>
+        <cite data-i18n="about.quote2.cite">Wido Weyer — Managing Partner, MENTOR</cite>
       </blockquote>
 
       <div class="about__partners">
@@ -132,56 +142,54 @@
   <!-- ===================== TECHNOLOGY ===================== -->
   <section class="section tech" id="technology">
     <div class="container">
-      <p class="eyebrow">Technology</p>
-      <h2 class="section__title">How textile light works</h2>
+      <p class="eyebrow" data-i18n="tech.eyebrow">Technology</p>
+      <h2 class="section__title" data-i18n="tech.title">How textile light works</h2>
 
       <div class="tech__layout">
         <div class="tech__text">
-          <p>
+          <p data-i18n="tech.p1">
             A textile lighting system consists of one or more LED light sources and a textile material —
             individual fibres or a woven fabric that acts as the light guide. Clear polymer optical fibres
             (POFs made of PMMA) are woven as weft threads together with warp threads of white polyester
             yarn to form light-conducting fibre mats.
           </p>
-          <p>
+          <p data-i18n="tech.p2">
             The light-conducting fibres are gathered in a ferrule and connected to the LED module. The light
             typically exits through the side of the fibre or fabric (<em>lateral coupling</em>) — the surface is
             activated at the desired emission areas with individual, light-scattering structures. A decorative
             cover fabric is applied on top, with an optional diffuser and reflector layer. When the mat is not
             activated, light exits at the end — <em>axial coupling</em> — ideal for line lighting.
           </p>
-          <p>
+          <p data-i18n="tech.p3">
             The LED modules — monochrome, white or RGB — integrate the LED, its driver and thermoelements,
             with a special mixing optic that distributes the light evenly across all polished fibre ends.
           </p>
         </div>
         <div class="tech__gallery">
           <img src="assets/img/tech/tech1.jpg" alt="Textile lighting fibre detail" loading="lazy" />
-          <img src="assets/img/tech/tech2.jpg" alt="Illuminated textile surface" loading="lazy" />
-          <img src="assets/img/tech/tech-render.jpg" alt="MUNDA technology render" loading="lazy" />
         </div>
       </div>
 
-      <h3 class="tech__subtitle">The advantages of textile lighting</h3>
+      <h3 class="tech__subtitle" data-i18n="tech.subtitle">The advantages of textile lighting</h3>
       <div class="tech__features">
         <div class="feature">
-          <h4>Optimal use of installation space</h4>
-          <p>
+          <h4 data-i18n="tech.f1.title">Optimal use of installation space</h4>
+          <p data-i18n="tech.f1.body">
             The light guide needs under 5 mm for its entire construction and can be deformed almost freely
             in a spherical way. Light can be integrated where other technologies reach their limits — even in
             complex package situations, and in facelifts and relaunches with minimal process changes.
           </p>
         </div>
         <div class="feature">
-          <h4>No initial tooling investment</h4>
-          <p>
+          <h4 data-i18n="tech.f2.title">No initial tooling investment</h4>
+          <p data-i18n="tech.f2.body">
             Unlike plastic injection moulding, textile lighting requires no component-specific tooling.
             Short development times and very economical production — even for small series.
           </p>
         </div>
         <div class="feature">
-          <h4>Large surfaces, free forms, dynamic light</h4>
-          <p>
+          <h4 data-i18n="tech.f3.title">Large surfaces, free forms, dynamic light</h4>
+          <p data-i18n="tech.f3.body">
             Confectionable and drapable, textile lighting is predestined for lighting larger areas and free
             forms — and for realising dynamic, individual light scenarios.
           </p>
@@ -193,8 +201,8 @@
   <!-- ===================== PROJECTS ===================== -->
   <section class="section projects" id="projects">
     <div class="container">
-      <p class="eyebrow">Projects</p>
-      <h2 class="section__title">Textile light, in series production</h2>
+      <p class="eyebrow" data-i18n="projects.eyebrow">Projects</p>
+      <h2 class="section__title" data-i18n="projects.title">Textile light, in series production</h2>
 
       <!-- Audi flagship -->
       <article class="audi">
@@ -202,12 +210,12 @@
           <img src="assets/img/projects/audi-a3-1.jpg" alt="Textile lighting in the Audi A3 door panel" loading="lazy" />
         </div>
         <div class="audi__body">
-          <span class="audi__badge">Flagship · 2024</span>
-          <h3>Audi A3 — Facelift 2024</h3>
-          <p class="audi__lead">
+          <span class="audi__badge" data-i18n="projects.badge">Flagship · 2024</span>
+          <h3 data-i18n="projects.audiTitle">Audi A3 — Facelift 2024</h3>
+          <p class="audi__lead" data-i18n="projects.lead">
             The first series-production vehicle with textile lighting from MUNDA.
           </p>
-          <p>
+          <p data-i18n="projects.body">
             With the new Audi A3 facelift, our textile lighting systems celebrate their world premiere in
             summer 2024. As the first automotive manufacturer in the world, Audi integrates our textile
             light system into the door panels of a series vehicle — impressive proof of how large-surface
@@ -215,9 +223,9 @@
             zones.
           </p>
           <ul class="audi__points">
-            <li>World's first series vehicle with MUNDA textile light</li>
-            <li>Integrated into the door trim panels</li>
-            <li>Large-surface ambient lighting in crash-sensitive zones</li>
+            <li data-i18n="projects.p1">World's first series vehicle with MUNDA textile light</li>
+            <li data-i18n="projects.p2">Integrated into the door trim panels</li>
+            <li data-i18n="projects.p3">Large-surface ambient lighting in crash-sensitive zones</li>
           </ul>
         </div>
       </article>
@@ -240,7 +248,7 @@
 
       <!-- Awards -->
       <div class="awards">
-        <p class="awards__label">Recognised for design and innovation</p>
+        <p class="awards__label" data-i18n="projects.awards">Recognised for design and innovation</p>
         <div class="awards__row">
           <img src="assets/img/logo/award-gia23.png" alt="German Innovation Award 2023" />
           <img src="assets/img/logo/award-gda24.png" alt="German Design Award 2024" />
@@ -253,9 +261,9 @@
   <!-- ===================== TEAM ===================== -->
   <section class="section team" id="team">
     <div class="container">
-      <p class="eyebrow">People</p>
-      <h2 class="section__title">The team behind MUNDA</h2>
-      <p class="team__intro">
+      <p class="eyebrow" data-i18n="team.eyebrow">People</p>
+      <h2 class="section__title" data-i18n="team.title">The team behind MUNDA</h2>
+      <p class="team__intro" data-i18n="team.intro">
         A committed, dynamic team working with the spirit of a start-up — backed by strong partners.
         Our managing directors and points of contact:
       </p>
@@ -266,7 +274,7 @@
             <img src="assets/img/team/kai-muxel.jpg" alt="Kai Muxel" loading="lazy" />
           </div>
           <h3>Kai Muxel</h3>
-          <p class="person__role">Managing Director · MUNDA</p>
+          <p class="person__role" data-i18n="team.role1">Managing Director · MUNDA</p>
           <a class="person__mail" href="mailto:kai.muxel@munda.tech">kai.muxel@munda.tech</a>
         </article>
 
@@ -275,7 +283,7 @@
             <img src="assets/img/team/peter-bolten.jpg" alt="Peter Bolten" loading="lazy" />
           </div>
           <h3>Peter Bolten</h3>
-          <p class="person__role">Managing Director · AUNDE / Sales AUNDE</p>
+          <p class="person__role" data-i18n="team.role2">Managing Director · AUNDE / Sales AUNDE</p>
           <a class="person__mail" href="mailto:p.bolten.mg@aunde.de">p.bolten.mg@aunde.de</a>
         </article>
 
@@ -284,7 +292,7 @@
             <img src="assets/img/team/alex-rebling.jpg" alt="Alexander Rebling" loading="lazy" />
           </div>
           <h3>Alexander Rebling</h3>
-          <p class="person__role">Sales · MENTOR</p>
+          <p class="person__role" data-i18n="team.role3">Sales · MENTOR</p>
           <a class="person__mail" href="mailto:alexander.rebling@mentor.de.com">alexander.rebling@mentor.de.com</a>
         </article>
 
@@ -293,7 +301,7 @@
             <img src="assets/img/team/stephan-sost.jpg" alt="Stephan Sost" loading="lazy" />
           </div>
           <h3>Stephan Sost</h3>
-          <p class="person__role">Marketing · MUNDA</p>
+          <p class="person__role" data-i18n="team.role4">Marketing · MUNDA</p>
           <a class="person__mail" href="mailto:stephan.sost@munda.tech">stephan.sost@munda.tech</a>
         </article>
       </div>
@@ -303,8 +311,8 @@
   <!-- ===================== CONTACT ===================== -->
   <section class="section contact" id="contact">
     <div class="container">
-      <p class="eyebrow">Contact</p>
-      <h2 class="section__title">Get in touch</h2>
+      <p class="eyebrow" data-i18n="contact.eyebrow">Contact</p>
+      <h2 class="section__title" data-i18n="contact.title">Get in touch</h2>
       <div class="contact__grid">
         <div class="contact__card">
           <h3>MUNDA Textile Lichtsysteme GmbH</h3>
@@ -315,14 +323,14 @@
           </p>
         </div>
         <div class="contact__card">
-          <h3>Reach us</h3>
+          <h3 data-i18n="contact.c2title">Reach us</h3>
           <p>
             <a href="mailto:welcome@munda.tech">welcome@munda.tech</a><br />
-            <a href="tel:+4921195073730">+49 211 9507373-0</a>
+            <a href="tel:+492****3730">+49 211 9507373-0</a>
           </p>
         </div>
         <div class="contact__card">
-          <h3>Partners</h3>
+          <h3 data-i18n="contact.c3title">Partners</h3>
           <p>
             <a href="https://www.aunde-group.com" target="_blank" rel="noopener">www.aunde-group.com</a><br />
             <a href="https://www.mentor.de.com" target="_blank" rel="noopener">www.mentor.de.com</a>
@@ -336,12 +344,12 @@
   <footer class="footer">
     <div class="container footer__inner">
       <img src="assets/img/logo/logo-noclaim.png" alt="MUNDA" class="footer__logo" />
-      <p class="footer__text">
+      <p class="footer__text" data-i18n="footer.text">
         MUNDA Textile Lichtsysteme GmbH · A joint venture of AUNDE &amp; MENTOR<br />
         Textile Lighting Systems for the automotive industry and beyond.
       </p>
       <p class="footer__legal">
-        © <span id="year"></span> MUNDA Textile Lichtsysteme GmbH. All rights reserved.
+        © <span id="year"></span> <span data-i18n="footer.legal">MUNDA Textile Lichtsysteme GmbH. All rights reserved.</span>
       </p>
     </div>
   </footer>

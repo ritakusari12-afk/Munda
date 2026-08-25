@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MUNDA Light Match — The Game</title>
+  <meta name="description" content="MUNDA Light Match — attach the glowing textile lights to the Audi interior and light it up. You lit the future with MUNDA!" />
+  <link rel="icon" type="image/png" href="assets/img/logo/favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/game.css" />
+</head>
+<body>
+
+  <!-- ===== Top bar ===== -->
+  <header class="topbar">
+    <a href="index.html" class="topbar__back">← MUNDA</a>
+    <h1 class="topbar__title">MUNDA <span>Light Match</span></h1>
+    <div class="topbar__stats">
+      <div class="stat">
+        <span class="stat__label">Score</span>
+        <span class="stat__value" id="score">0</span>
+      </div>
+      <button class="sound-btn" id="soundToggle" title="Sound on/off" aria-label="Sound">🔊</button>
+    </div>
+  </header>
+
+  <!-- ===== Timer bar ===== -->
+  <div class="timerbar">
+    <div class="timerbar__fill" id="timerFill"></div>
+    <span class="timerbar__label" id="timerLabel">75</span>
+  </div>
+
+  <!-- ===== Stage ===== -->
+  <main class="stage">
+    <div class="car-wrap" id="carWrap">
+
+      <svg id="gameSvg" viewBox="0 0 900 500" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <radialGradient id="pinkLit" cx="0.35" cy="0.35" r="0.95">
+            <stop offset="0" stop-color="#ff8ac2" />
+            <stop offset="0.55" stop-color="#ff2d95" />
+            <stop offset="1" stop-color="#d61675" />
+          </radialGradient>
+          <radialGradient id="lightGlow" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0" stop-color="rgba(255,45,149,0.6)" />
+            <stop offset="0.55" stop-color="rgba(255,45,149,0.28)" />
+            <stop offset="1" stop-color="rgba(255,45,149,0)" />
+          </radialGradient>
+        </defs>
+
+        <!-- AUDI INTERIOR (player photo, full frame) -->
+        <image class="car-img" href="assets/img/game/interior.jpg" x="0" y="0" width="900" height="500" preserveAspectRatio="none" />
+
+        <!-- sockets (empty glowing spaces) injected by JS -->
+        <g id="socketsLayer" pointer-events="none"></g>
+
+        <!-- pieces tray shelf -->
+        <rect x="58" y="402" width="784" height="82" rx="16" fill="#0e0e16" stroke="#1e1e2c" />
+
+        <!-- pieces (glowing textile lights) injected by JS -->
+        <g id="piecesLayer"></g>
+      </svg>
+
+      <!-- glow + sparkles shown when the interior lights up -->
+      <div class="ambient" id="ambient"></div>
+      <span class="sparkle" style="left:50%; top:14%; width:22px; animation-delay:0s;"></span>
+      <span class="sparkle" style="left:14%; top:38%; width:16px; animation-delay:.5s;"></span>
+      <span class="sparkle" style="left:86%; top:36%; width:18px; animation-delay:1s;"></span>
+      <span class="sparkle" style="left:24%; top:72%; width:13px; animation-delay:.3s;"></span>
+      <span class="sparkle" style="left:76%; top:70%; width:15px; animation-delay:.8s;"></span>
+    </div>
+
+    <!-- Hints -->
+    <div class="hints">
+      <span>💡 Attach the glowing lights to the interior</span>
+      <span>🚗 Match each light to its shape</span>
+      <span>⭐ Points for every correct light</span>
+      <span>⏱️ Finish before the timer runs out</span>
+    </div>
+    <p class="credit">Interior photo by the player</p>
+  </main>
+
+  <!-- ===== Win overlay ===== -->
+  <div class="overlay hidden" id="winOverlay">
+    <div class="overlay__box">
+      <div class="overlay__sparkles" aria-hidden="true">
+        <span class="sparkle" style="left:6%; top:16%; width:20px; animation-delay:0s;"></span>
+        <span class="sparkle" style="left:88%; top:10%; width:24px; animation-delay:.4s;"></span>
+        <span class="sparkle" style="left:12%; top:62%; width:15px; animation-delay:.9s;"></span>
+        <span class="sparkle" style="left:82%; top:58%; width:18px; animation-delay:.2s;"></span>
+        <span class="sparkle" style="left:50%; top:2%; width:16px; animation-delay:.6s;"></span>
+        <span class="sparkle" style="left:70%; top:80%; width:13px; animation-delay:1.2s;"></span>
+      </div>
+      <p class="overlay__eyebrow">MUNDA LIGHT MATCH</p>
+      <h2 class="overlay__title">You lit the future<br />with MUNDA!</h2>
+      <p class="overlay__score">Score: <b id="finalScore">0</b></p>
+      <p class="overlay__bonus">Time bonus: <b id="timeBonus">+0</b></p>
+      <p class="overlay__best">Best: <b id="bestScore">0</b></p>
+      <button class="overlay__btn" id="restartWinBtn">Play again</button>
+      <a class="overlay__link" href="index.html">Back to MUNDA</a>
+    </div>
+  </div>
+
+  <!-- ===== Lose overlay ===== -->
+  <div class="overlay hidden" id="loseOverlay">
+    <div class="overlay__box">
+      <p class="overlay__eyebrow">MUNDA LIGHT MATCH</p>
+      <h2 class="overlay__title">Time's up!</h2>
+      <p class="overlay__score">Score: <b id="loseScore">0</b></p>
+      <p class="overlay__best">Best: <b id="bestScore2">0</b></p>
+      <button class="overlay__btn" id="restartLoseBtn">Try again</button>
+      <a class="overlay__link" href="index.html">Back to MUNDA</a>
+    </div>
+  </div>
+
+  <script src="assets/js/game.js"></script>
+</body>
+</html>

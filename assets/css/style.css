@@ -65,6 +65,48 @@ img { max-width: 100%; display: block; }
 }
 .nav__links a:hover { color: var(--accent-soft); }
 
+.nav__right { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.nav__game {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--accent);
+  padding: 9px 28px;
+  border-radius: 999px;
+  box-shadow: 0 8px 26px var(--accent-glow);
+  line-height: 1.2;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.nav__game:hover { color: #fff; background: #ff4fa6; transform: translateY(-2px); box-shadow: 0 12px 32px var(--accent-glow); }
+
+.nav__top { display: flex; align-items: center; gap: 20px; }
+.nav__lang {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px 8px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+.lang-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-head);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  padding: 2px 6px;
+  transition: color 0.2s;
+}
+.lang-btn:hover { color: var(--text); }
+.lang-btn.is-active { color: var(--accent-soft); font-weight: 800; }
+.lang-sep { color: #4a4a5a; font-size: 0.72rem; }
+
 .nav__toggle {
   display: none;
   flex-direction: column;
@@ -255,8 +297,13 @@ img { max-width: 100%; display: block; }
 .tech__layout { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center; }
 .tech__text p { color: var(--muted); margin-bottom: 16px; }
 .tech__text em { color: var(--accent-soft); font-style: normal; }
-.tech__gallery { display: grid; gap: 14px; }
-.tech__gallery img { border-radius: var(--radius); border: 1px solid var(--border); width: 100%; }
+.tech__gallery { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.tech__gallery img {
+  width: 62%;
+  max-width: 300px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
 
 .tech__subtitle { font-family: var(--font-head); font-size: 1.5rem; margin: 60px 0 28px; }
 .tech__features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
@@ -385,6 +432,7 @@ img { max-width: 100%; display: block; }
   }
   .nav__links.open { display: flex; }
   .nav__toggle { display: flex; }
+  .nav__game { font-size: 0.82rem; padding: 7px 18px; }
   .about__cards, .tech__features, .team__grid, .projects__grid { grid-template-columns: 1fr; }
   .section { padding: 72px 0; }
   .audi__body { padding: 26px; }
