@@ -22,6 +22,18 @@
     <button class="finish-btn" id="finishBtn" disabled>Finish ✨</button>
   </header>
 
+  <!-- ===== Timer bar ===== -->
+  <div class="timerbar">
+    <div class="timerbar__fill" id="timerFill"></div>
+    <span class="timerbar__label" id="timerLabel">75</span>
+  </div>
+
+  <!-- ===== Brief bar — Luka's request, always visible while designing ===== -->
+  <div class="briefbar hidden" id="briefbar">
+    <span class="briefbar__who" id="briefWho">Luka wants</span>
+    <span class="briefbar__spec" id="briefSpec"></span>
+  </div>
+
   <!-- ===== Studio ===== -->
   <main class="studio">
 
@@ -337,6 +349,15 @@
     </aside>
   </main>
 
+  <!-- ===== Luka, the MUNDA designer (corner NPC) ===== -->
+  <aside class="guru" id="guru" aria-label="Luka, MUNDA interior designer">
+    <div class="guru__bubble" id="guruBubble">
+      <span class="guru__bubble-name" id="guruName"></span>
+      <p class="guru__bubble-text" id="guruText" role="status" aria-live="polite"></p>
+    </div>
+    <div class="guru__body" id="guruBody"></div>
+  </aside>
+
   <!-- ===== Finish overlay ===== -->
   <div class="overlay hidden" id="finishOverlay">
     <div class="overlay__box">
@@ -352,8 +373,58 @@
       <h2 class="overlay__title">Your MUNDA Interior.</h2>
       <div class="overlay__car" id="overlayCar"></div>
       <div class="overlay__chips" id="chips"></div>
+      <div class="verdict" id="verdictBlock">
+        <div class="verdict__head">
+          <div class="verdict__avatar" id="verdictAvatar"></div>
+          <div>
+            <p class="verdict__name" id="verdictName">Luka · MUNDA Designer</p>
+          </div>
+        </div>
+        <p class="verdict__text" id="verdictText"></p>
+        <p class="verdict__score">Score: <b id="verdictScore">0</b> <span class="verdict__bonus" id="verdictBonus">(+0 time)</span> · Best: <b id="verdictBest">0</b></p>
+      </div>
+      <div class="report hidden" id="reportBlock">
+        <p class="report__title">MUNDA Quality Report <span>by Max · Quality Monitor</span></p>
+        <div class="report__row">
+          <span class="report__label">Requirements fill</span>
+          <div class="report__track"><div class="report__fill" id="repFill"></div></div>
+          <span class="report__value" id="repFillVal">0%</span>
+        </div>
+        <div class="report__row">
+          <span class="report__label">Brightness</span>
+          <div class="report__track"><div class="report__fill" id="repBright"></div></div>
+          <span class="report__value" id="repBrightVal">0%</span>
+        </div>
+        <div class="report__row">
+          <span class="report__label">Texture quality</span>
+          <div class="report__track"><div class="report__fill" id="repTexture"></div></div>
+          <span class="report__value" id="repTextureVal">0%</span>
+        </div>
+        <p class="report__overall">Overall: <b id="repGrade">—</b><span id="repOverall">0/100</span></p>
+      </div>
       <div class="overlay__actions">
         <button class="overlay__btn" id="againBtn">Start over</button>
+        <a class="overlay__link" href="index.html">Back to MUNDA</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Time's up overlay ===== -->
+  <div class="overlay hidden" id="timeOverlay">
+    <div class="overlay__box">
+      <p class="overlay__eyebrow">MUNDA DESIGN STUDIO</p>
+      <h2 class="overlay__title">Time's up!</h2>
+      <div class="verdict">
+        <div class="verdict__head">
+          <div class="verdict__avatar" id="timeAvatar"></div>
+          <div>
+            <p class="verdict__name" id="timeName">Luka · MUNDA Designer</p>
+          </div>
+        </div>
+        <p class="verdict__text" id="timeVerdictText"></p>
+      </div>
+      <div class="overlay__actions">
+        <button class="overlay__btn" id="timeAgainBtn">Try again</button>
         <a class="overlay__link" href="index.html">Back to MUNDA</a>
       </div>
     </div>

@@ -32,6 +32,71 @@
   var TIME_LIMIT = 75;
   var BEST_KEY = 'munda-light-match-best';
 
+  /* ---------- Design briefs (Luka asks for a style) ---------- */
+  var STYLES = [
+    {
+      key: 'sporty',
+      name: 'Sporty & Sharp',
+      ask: "Hey! I'm Luka, MUNDA designer. I want a SPORTY design - sharp angular lights: triangles, diamonds, stars, hexagons. Build it and finish fast - time is score!",
+      winFast: "That's the sporty design I wanted - sharp, aggressive, and quick! {t}s to spare. Score: {s}. Great pace!",
+      winSlow: "The sporty design is lit - but only {t}s left is a slow pace for an aggressive cabin. Score: {s}.",
+      lose: "Time's up - the sporty design isn't finished. Sharp means every light locked in, fast. Try again!"
+    },
+    {
+      key: 'elegant',
+      name: 'Elegant & Soft',
+      ask: "Hey! I'm Luka, MUNDA designer. I want an ELEGANT design - soft, flowing lights: circles, pills, smooth lines. Build it and finish fast - time is score!",
+      winFast: "The elegant design I asked for - soft, flowing, and finished with {t}s to spare. Score: {s}. Beautiful!",
+      winSlow: "The elegant design came together - a little slowly, but calm and refined. Score: {s}.",
+      lose: "Time's up - the elegant design needs every soft light placed. It's not finished yet. Try again!"
+    },
+    {
+      key: 'minimal',
+      name: 'Modern & Minimal',
+      ask: "Hey! I'm Luka, MUNDA designer. I want a MINIMAL design - clean geometric lights, nothing extra. Build it and finish fast - time is score!",
+      winFast: "Clean, minimal, precise - and fast! {t}s to spare. Score: {s}. Exactly my style.",
+      winSlow: "Minimal and clean, but slow - precision should be quick. Score: {s}.",
+      lose: "Time's up - minimal needs total precision, and there's no time left. Try again!"
+    },
+    {
+      key: 'luxury',
+      name: 'Luxury & Bold',
+      ask: "Hey! I'm Luka, MUNDA designer. I want a LUXURY design - bold, confident lights that make a statement. Build it and finish fast - time is score!",
+      winFast: "Bold, luxurious, and quick - {t}s to spare. Score: {s}. Now THAT is a statement!",
+      winSlow: "Luxury takes time, but {t}s left? It's bold, though. Score: {s}.",
+      lose: "Time's up - a bold design must be complete to make a statement. Try again!"
+    }
+  ];
+
+  /* Luka — the corner NPC, drawn as inline SVG (SMIL arm wave + blink) */
+  var GURU_SVG =
+    '<svg viewBox="0 0 140 170" xmlns="http://www.w3.org/2000/svg">' +
+    '  <g>' +
+    '    <animateTransform attributeName="transform" type="rotate" values="-8 100 112; 14 100 112; -8 100 112" keyTimes="0;0.5;1" dur="1.7s" repeatCount="indefinite"/>' +
+    '    <path d="M100 114 Q122 104 128 86" stroke="#221a2e" stroke-width="15" stroke-linecap="round" fill="none"/>' +
+    '    <circle cx="130" cy="82" r="9" fill="#f0c294"/>' +
+    '  </g>' +
+    '  <path d="M28 170 C28 128 48 110 70 110 C92 110 112 128 112 170 Z" fill="#171726" stroke="#26263a" stroke-width="2"/>' +
+    '  <path d="M70 110 L59 128 L70 121 L81 128 Z" fill="#ff2d95"/>' +
+    '  <rect x="64" y="96" width="12" height="16" rx="4" fill="#e8b98c"/>' +
+    '  <circle cx="70" cy="62" r="34" fill="#f0c294"/>' +
+    '  <path d="M36 60 A34 34 0 0 1 104 60 L104 50 C104 34 90 24 70 24 C50 24 36 34 36 50 Z" fill="#221a2e"/>' +
+    '  <ellipse cx="57" cy="62" rx="4.2" ry="4.6" fill="#191222">' +
+    '    <animate attributeName="ry" values="4.6;4.6;0.5;4.6" keyTimes="0;0.93;0.97;1" dur="3.8s" repeatCount="indefinite"/>' +
+    '  </ellipse>' +
+    '  <ellipse cx="83" cy="62" rx="4.2" ry="4.6" fill="#191222">' +
+    '    <animate attributeName="ry" values="4.6;4.6;0.5;4.6" keyTimes="0;0.93;0.97;1" dur="3.8s" repeatCount="indefinite"/>' +
+    '  </ellipse>' +
+    '  <g fill="rgba(255,45,149,0.12)" stroke="#ff2d95" stroke-width="2.5">' +
+    '    <circle cx="57" cy="62" r="11"/>' +
+    '    <circle cx="83" cy="62" r="11"/>' +
+    '    <path d="M68 62 L72 62" fill="none"/>' +
+    '  </g>' +
+    '  <path d="M60 78 Q70 88 80 78" stroke="#8a5a3a" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+    '  <circle cx="70" cy="142" r="8" fill="#ff2d95"/>' +
+    '  <path d="M65.5 142 L69 145.5 L75 138" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>' +
+    '</svg>';
+
   /* ---------- State ---------- */
   var score = 0;
   var timeLeft = TIME_LIMIT;
@@ -39,6 +104,11 @@
   var playing = false;
   var timerId = null;
   var best = 0;
+  var style = null;
+  var lastStyleKey = null;
+  var firstGame = true;
+  var hideTimer = null;
+  var typeIv = null;
 
   /* ---------- Elements ---------- */
   var carWrap = document.getElementById('carWrap');
@@ -50,6 +120,11 @@
   var timerLabel = document.getElementById('timerLabel');
   var winOverlay = document.getElementById('winOverlay');
   var loseOverlay = document.getElementById('loseOverlay');
+  var guru = document.getElementById('guru');
+  var guruBubble = document.getElementById('guruBubble');
+  var guruName = document.getElementById('guruName');
+  var guruText = document.getElementById('guruText');
+  var guruBody = document.getElementById('guruBody');
 
   function spot(def) {
     return { x: def.fx * 900, y: def.fy * 500 };
@@ -274,6 +349,7 @@
     piece.classList.add('placed');
 
     filledCount++;
+    if (filledCount === 1) hideBubble(); /* the ask is done — player is building */
     if (filledCount === LIGHTS.length) win();
   }
 
@@ -310,6 +386,73 @@
     if (timerId) { clearInterval(timerId); timerId = null; }
   }
 
+  /* ---------- Luka (corner NPC) ---------- */
+  function injectGuru() {
+    guruBody.innerHTML = GURU_SVG;
+  }
+
+  function showBubble() { guruBubble.classList.add('show'); }
+
+  function hideBubble() {
+    guruBubble.classList.remove('show');
+    if (typeIv) { clearInterval(typeIv); typeIv = null; }
+    if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
+  }
+
+  function setBubble(text) {
+    guruName.textContent = 'Luka \u00B7 MUNDA Designer';
+    guruText.textContent = text;
+    guruText.classList.remove('typing');
+  }
+
+  function typeBubble(text, speed, done) {
+    if (typeIv) clearInterval(typeIv);
+    showBubble();
+    guruName.textContent = 'Luka \u00B7 MUNDA Designer';
+    guruText.textContent = '';
+    guruText.classList.add('typing');
+    var i = 0;
+    typeIv = setInterval(function () {
+      i++;
+      guruText.textContent = text.slice(0, i);
+      if (i >= text.length) {
+        clearInterval(typeIv);
+        typeIv = null;
+        guruText.classList.remove('typing');
+        if (done) done();
+      }
+    }, speed);
+  }
+
+  function pickStyle() {
+    var pool = [];
+    for (var i = 0; i < STYLES.length; i++) {
+      if (STYLES[i].key !== lastStyleKey) pool.push(STYLES[i]);
+    }
+    var s = pool[Math.floor(Math.random() * pool.length)];
+    lastStyleKey = s.key;
+    return s;
+  }
+
+  /* slide in + ask for a style while the timer runs (game stays untouched) */
+  function npcAsk(first) {
+    style = pickStyle();
+    if (!guru.classList.contains('in')) guru.classList.add('in');
+    typeBubble(style.ask, first ? 14 : 10, function () {
+      hideTimer = setTimeout(hideBubble, 5500);
+    });
+  }
+
+  /* short verdict after the game — mentions the time-based score */
+  function npcVerdict(won) {
+    if (!style) return;
+    var text = won ? (timeLeft >= 40 ? style.winFast : style.winSlow) : style.lose;
+    if (won) text = text.replace('{t}', timeLeft).replace('{s}', score);
+    showBubble();
+    setBubble(text);
+    hideTimer = setTimeout(hideBubble, 8000);
+  }
+
   /* ---------- End states ---------- */
   function win() {
     playing = false;
@@ -326,7 +469,10 @@
     }
     document.getElementById('bestScore').textContent = best;
     sndWin();
-    setTimeout(function () { winOverlay.classList.remove('hidden'); }, 900);
+    setTimeout(function () {
+      winOverlay.classList.remove('hidden');
+      npcVerdict(true);
+    }, 900);
   }
 
   function lose() {
@@ -336,6 +482,7 @@
     document.getElementById('bestScore2').textContent = best;
     sndLose();
     loseOverlay.classList.remove('hidden');
+    npcVerdict(false);
   }
 
   /* ---------- Start / restart ---------- */
@@ -352,6 +499,9 @@
     buildSockets();
     buildPieces();
     startTimer();
+    hideBubble();
+    npcAsk(firstGame);
+    firstGame = false;
   }
 
   /* ---------- Sparkles: inject the 4-point star shape into every .sparkle ---------- */
@@ -375,5 +525,6 @@
 
   /* ---------- Boot ---------- */
   try { best = parseInt(localStorage.getItem(BEST_KEY), 10) || 0; } catch (e) { best = 0; }
+  injectGuru();
   startGame();
 })();
